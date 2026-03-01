@@ -1,0 +1,287 @@
+index.html <!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>questionnaire gavé facile sur les réseaux - mamate1222</title>
+<style>
+html, body {
+    margin:0; padding:0;
+    width:100%; height:100%;
+    font-family: Arial, sans-serif;
+    overflow:hidden;
+    background:#111;
+    color:white;
+}
+#logoContainer {
+    position:fixed; top:0; left:0;
+    width:100%; height:100%;
+    z-index:-2;
+    overflow:hidden;
+}
+.logo {
+    position:absolute;
+    width:60px; height:60px;
+    opacity:0.2;
+    transition: transform 0.5s;
+}
+
+#welcome {
+    position:absolute;
+    width:100%; height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    transition: all 1s ease;
+}
+#welcome h1 { font-size:50px; margin-bottom:20px; animation: fadeInDown 1s;}
+#welcome p { font-size:22px; margin-bottom:40px; animation: fadeInUp 1s;}
+#enterBtn {
+    font-size:26px;
+    padding:15px 40px;
+    border:none;
+    border-radius:12px;
+    background:#e67e22;
+    cursor:pointer;
+    transition: 0.3s;
+}
+#enterBtn:hover { transform: scale(1.1); background:#f39c12; }
+
+#main {
+    display:none;
+    padding:20px;
+    text-align:center;
+    height:100%; overflow-y:auto;
+    box-sizing:border-box;
+}
+.questionBlock {
+    margin:20px auto;
+    background-color: rgba(44,62,80,0.9);
+    padding:20px;
+    border-radius:15px;
+    max-width:600px;
+    box-shadow: 0 0 15px #000;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.questionBlock:hover { transform: scale(1.02); box-shadow:0 0 25px #f39c12; }
+
+input[type="text"] {
+    padding:8px;
+    font-size:16px;
+    width:60%;
+    border-radius:5px;
+    border:none;
+}
+input[type="text"]:focus { outline:none; box-shadow:0 0 10px #f39c12; }
+
+button.checkBtn {
+    padding:8px 20px;
+    margin-left:10px;
+    font-size:16px;
+    cursor:pointer;
+    background-color:#f39c12;
+    border:none;
+    border-radius:5px;
+    transition:0.3s;
+}
+button.checkBtn:hover { background:#e67e22; transform: scale(1.1); }
+
+p.result {
+    margin-top:10px;
+    font-size:18px;
+    min-height:24px;
+    transition: all 0.5s;
+    animation: pop 0.5s;
+}
+
+.credits {
+    margin-top:40px;
+    font-size:18px;
+}
+.credits a { color:#e67e22; text-decoration:none; font-weight:bold; }
+.credits a:hover { color:#f39c12; }
+
+#successAnimation {
+    display:none;
+    position:fixed; top:0; left:0;
+    width:100%; height:100%;
+    z-index:999;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    font-size:80px;
+    font-weight:bold;
+    color:#f39c12;
+}
+
+.confetti {
+    position:fixed;
+    width:10px; height:10px;
+    background: #f1c40f;
+    top:0; left:0;
+    opacity:1;
+    z-index:1000;
+    pointer-events:none;
+    animation: fall 2s linear forwards;
+}
+
+@keyframes fadeInDown { from{opacity:0; transform:translateY(-50px);} to{opacity:1; transform:translateY(0);} }
+@keyframes fadeInUp { from{opacity:0; transform:translateY(50px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pop { 0%{transform:scale(0.5);} 70%{transform:scale(1.2);} 100%{transform:scale(1);} }
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity:1; }
+    100% { transform: translateY(800px) rotate(720deg); opacity:0; }
+}
+</style>
+</head>
+<body>
+<div id="logoContainer"></div>
+
+<div id="welcome">
+    <h1>questionnaire gavé facile sur les réseaux</h1>
+    <p>Created by <a href="https://www.tiktok.com/@mamate1222" target="_blank">mamate1222</a></p>
+    <button id="enterBtn">Entrer dans le site</button>
+</div>
+
+<div id="main">
+    <h2>VZY arrête de lire et répond aux questions frr !</h2>
+
+    <div class="questionBlock">
+        <p><strong>1️⃣ Quelle app permet de regarder des vidéo en format 9:16 ?( lv si t'y arrive pas chp quoi te dire mais brf )</strong></p>
+        <input type="text" id="answer1" placeholder="Ta réponse...">
+        <button class="checkBtn" onclick="checkAnswer1()">Vérifier</button>
+        <p id="result1" class="result"></p>
+    </div>
+
+    <div class="questionBlock">
+        <p><strong>2️⃣ Quelle app a changé de nom par une lettre ya quelques années ? ( rep avc la lettre en question )</strong></p>
+        <input type="text" id="answer2" placeholder="Ta réponse...">
+        <button class="checkBtn" onclick="checkAnswer2()">Vérifier</button>
+        <p id="result2" class="result"></p>
+    </div>
+
+    <div class="questionBlock">
+        <p><strong>3️⃣ Quel app est violette et orange ?( lv j'avais pas d'idée )</strong></p>
+        <input type="text" id="answer3" placeholder="Ta réponse...">
+        <button class="checkBtn" onclick="checkAnswer3()">Vérifier</button>
+        <p id="result3" class="result"></p>
+    </div>
+
+    <div class="questionBlock">
+        <p><strong>4️⃣ Quelle app permet de garder un score pdt des jours tant qu'on fait des photos et aussi est connu grace au filtres ?</strong></p>
+        <input type="text" id="answer4" placeholder="Ta réponse...">
+        <button class="checkBtn" onclick="checkAnswer4()">Vérifier</button>
+        <p id="result4" class="result"></p>
+    </div>
+
+    <div class="credits">
+        <p>Created by <a href="https://www.tiktok.com/@mamate1222" target="_blank">mamate1222</a> | Suis-moi sur mes réseaux et merci bcp d'être venu sur mon site ça fait grv plaisir !</p>
+    </div>
+</div>
+
+<div id="successAnimation">GG BG</div>
+
+<script>
+// Bouton accueil
+const enterBtn = document.getElementById('enterBtn');
+const welcome = document.getElementById('welcome');
+const main = document.getElementById('main');
+const successAnim = document.getElementById('successAnimation');
+enterBtn.addEventListener('click', () => {
+    welcome.style.opacity = 0;
+    setTimeout(()=> { welcome.style.display='none'; main.style.display='block'; }, 500);
+});
+
+// Questions
+let attempts=[0,0,0,0]; let correct=[false,false,false,false];
+
+function showConfetti(x,y){
+    for(let i=0;i<10;i++){
+        let c=document.createElement('div');
+        c.className='confetti';
+        c.style.background=`hsl(${Math.random()*360},80%,60%)`;
+        c.style.left=(x+Math.random()*20-10)+'px';
+        c.style.top=(y+Math.random()*20-10)+'px';
+        c.style.width=(5+Math.random()*5)+'px';
+        c.style.height=c.style.width;
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),2000);
+    }
+}
+
+function showResult(resultElem, answerCorrect, index, inputElem){
+    if(answerCorrect){
+        resultElem.textContent="Tié fort , tié fort";
+        resultElem.style.color="lightgreen";
+        correct[index]=true;
+        let rect=inputElem.getBoundingClientRect();
+        showConfetti(rect.left+rect.width/2,rect.top+rect.height/2);
+        checkAllCorrect();
+    } else {
+        attempts[index]++;
+        if(attempts[index]===1){
+            resultElem.innerHTML="wesh, le sang t'abuse<br>non, je rigole, même moi j'y arrive pas";
+            resultElem.style.color="orange";
+        } else {
+            resultElem.textContent="❌ Toujours pas, nn lv t'abuse !";
+            resultElem.style.color="red";
+        }
+    }
+}
+
+function checkAllCorrect(){
+    if(correct.every(c=>c)){
+        successAnim.style.display="flex";
+        for(let i=0;i<100;i++){
+            showConfetti(Math.random()*window.innerWidth,Math.random()*window.innerHeight);
+        }
+    }
+}
+
+// Vérifications réponses
+function checkAnswer1(){ let ans=document.getElementById('answer1').value.toLowerCase(); showResult(document.getElementById('result1'), ans.includes('tiktok'),0, document.getElementById('answer1')); }
+function checkAnswer2(){ let ans=document.getElementById('answer2').value.toLowerCase(); showResult(document.getElementById('result2'), ans.includes('x'),1, document.getElementById('answer2')); }
+function checkAnswer3(){ let ans=document.getElementById('answer3').value.toLowerCase(); showResult(document.getElementById('result3'), ans.includes('instagram'),2, document.getElementById('answer3')); }
+function checkAnswer4(){ let ans=document.getElementById('answer4').value.toLowerCase(); showResult(document.getElementById('result4'), ans.includes('snapchat'),3, document.getElementById('answer4')); }
+
+// Logos animés
+const logoUrls = [
+    'https://logo.svgcdn.com/logos/tiktok.png',
+    'https://logo.svgcdn.com/streamline-logos/instagram-logo-1-solid-dark.png',
+    'https://www.nicepng.com/png/detail/328-3287890_social-networks-logos-facebook-twitter-instagram-snapchat-logo.png'
+];
+
+const logoContainer = document.getElementById('logoContainer');
+const logos = [];
+logoUrls.forEach(url=>{
+    const img = document.createElement('img');
+    img.src=url;
+    img.className='logo';
+    img.style.left=Math.random()*window.innerWidth+'px';
+    img.style.top=Math.random()*window.innerHeight+'px';
+    logoContainer.appendChild(img);
+    logos.push({
+        el: img,
+        dx: (Math.random()*2-1)*0.3,
+        dy: (Math.random()*2-1)*0.3
+    });
+});
+
+function animateLogos(){
+    logos.forEach(l=>{
+        let left = parseFloat(l.el.style.left);
+        let top = parseFloat(l.el.style.top);
+        left += l.dx;
+        top += l.dy;
+        if(left<0 || left>window.innerWidth-60) l.dx *= -1;
+        if(top<0 || top>window.innerHeight-60) l.dy *= -1;
+        l.el.style.left = left+'px';
+        l.el.style.top = top+'px';
+    });
+    requestAnimationFrame(animateLogos);
+}
+animateLogos();
+</script>
+</body>
+</html>
